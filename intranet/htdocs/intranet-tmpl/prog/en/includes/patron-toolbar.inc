@@ -1,0 +1,22 @@
+[% UNLESS ( no_add ) %]
+<div id="toolbar" class="btn-toolbar">
+    <div class="btn-group">
+        <button class="btn btn-small dropdown-toggle" data-toggle="dropdown"><i class="icon-plus"></i> New patron <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                [% IF Koha.Preference('AddPatronLists') == 'categorycode' %]
+                    [% FOREACH categorie IN categories %]<li><a href="/cgi-bin/koha/members/memberentry.pl?op=add&amp;categorycode=[% categorie.categorycode %]">[% categorie.description | html_entity %]</a></li>[% END %]
+                [% ELSE %]
+                    <li><a href="/cgi-bin/koha/members/memberentry.pl?op=add&amp;category_type=A">Adult patron</a></li>
+                    <li><a href="/cgi-bin/koha/members/memberentry.pl?op=add&amp;category_type=C">Child patron</a></li>
+                    <li><a href="/cgi-bin/koha/members/memberentry.pl?op=add&amp;category_type=P">Professional patron</a></li>
+                    <li><a href="/cgi-bin/koha/members/memberentry.pl?op=add&amp;category_type=I">Organization</a></li>
+                    <li><a href="/cgi-bin/koha/members/memberentry.pl?op=add&amp;category_type=S">Staff patron</a></li>
+                    <li><a href="/cgi-bin/koha/members/memberentry.pl?op=add&amp;category_type=X">Statistical patron</a></li>
+                [% END %]
+            </ul>
+    </div>
+    [% IF CAN_user_tools_manage_patron_lists %]
+        <a class="btn btn-small" href="/cgi-bin/koha/patron_lists/lists.pl"><i class="icon-edit"></i>Patron lists</a>
+    [% END %]
+</div>
+[% END %]
